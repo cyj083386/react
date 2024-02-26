@@ -21,19 +21,21 @@ const App = () => {
       // {spread 연산자}로 todo for문 돌리고, todo.checked 값을 반전함
       todo.id === id? {...todo, checked:!todo.checked} : todo)
     );
-  })
+  },[todos]
+  );
   const nextId = useRef(2501); //id 관리용으로 다음번호를 붙여줌
   const onInsert = useCallback((text) => {
     const nextTodo={id:nextId.current, text:text, checked:false};
     setTodos(todos.concat(nextTodo));
     nextId.current = nextId.current + 1;
-  },[todos]);
+  },[]
+  );
 
   //TodoListItem에서 remove button click -> id
   const onRemove = useCallback(
     (id) => {
     setTodos(todos.filter(todo => todo.id !== id));
-    },[todos]
+    },[]
   );
   return (
     <TodoTemplate>
